@@ -8,12 +8,21 @@ enum Direction {
     DOWN
 }
 
+enum CellState {
+    EMPTY = 0,
+    HERO = 1,
+    COLLECTABLE = 2,
+    DEAD = 9
+}
+
 class GameScreen {
     private int width;
     private int height;
 
     private Hero hero;
     private List<Enemy> enemies = new List<Enemy>();
+
+    private CellState[,] gameField;
 
     private Frame frame;
 
@@ -22,6 +31,17 @@ class GameScreen {
         this.height = height;
 
         frame = new Frame(0, 0, width, height, '#');
+
+        gameField = new CellState[width, height];
+        for (int i = 0; i < width; i++) {
+            gameField[i, 0] = CellState.DEAD;
+            gameField[i, height - 1] = CellState.DEAD;
+        }
+
+        for (int i = 0; i < height; i++) {
+            gameField[0, i] = CellState.DEAD;
+            gameField[width - 1, i] = CellState.DEAD;
+        }
     }
 
     public void SetHero(Hero hero) {
@@ -65,8 +85,16 @@ class GameScreen {
         return null;
     }
 
-    public void DoStep() {
+    public bool DoStep() {
         hero.AutoMove();
+
+        bool isDead = false;
+
+        if (gameField[hero.x, hero.y] == CellState.DEAD) {
+            isDead = true;
+        }
+
+        return isDead;
     }
 
     public void SetDirection(Direction right) {
@@ -81,8 +109,8 @@ class GameScreen {
 
 class Unit {
 
-    protected int x;
-    protected int y;
+    public int x;
+    public int y;
     protected string name;
 
     public Unit(int x, int y, string name) {

@@ -1,17 +1,22 @@
 ﻿using System;
 
+
 namespace ConsoleGame {
     public class GameController {
 
         private GuiControler _guiControler;
 
+        private GameOverWindow gameOverWindow;
+
         public GameController(GuiControler guiControler) {
             _guiControler = guiControler;
+            gameOverWindow = new GameOverWindow();
         }
 
         public void StartGame() {
             // init game
             GameScreen myGame = new GameScreen(120, 30);
+
 
             // fill game with game data.
             myGame.SetHero(new Hero(5, 5, "@"));
@@ -53,12 +58,20 @@ namespace ConsoleGame {
                     }
                 }
 
-                myGame.DoStep();
+                bool isDead = myGame.DoStep();
 
                 myGame.Render();
 
+                if (isDead) {
+                    needToRender = false;
+                    gameOverWindow.Render();
+                }
+
+
                 System.Threading.Thread.Sleep(250);
             } while (needToRender);
+
+            Console.ReadKey();
 
             _guiControler.ShowMenu();
         }

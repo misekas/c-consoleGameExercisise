@@ -31,10 +31,11 @@ sealed class GameWindow : Window {
     }
 
     public override void Render() {
+        Console.ForegroundColor = ConsoleColor.Black;
+
         base.Render();
 
         titleTextBlock.Render();
-
 
         for (int i = 0; i < menuButtons.Count; i++) {
             menuButtons[i].Render();
@@ -81,6 +82,41 @@ sealed class CreditWindow : Window {
     }
 
     public override void Render() {
+        Console.ForegroundColor = ConsoleColor.Black;
+        
+        base.Render();
+        creditTextBlock.Render();
+        backButton.Render();
+
+        Console.SetCursorPosition(0, 0);
+    }
+
+}
+
+sealed class GameOverWindow : Window {
+
+    private Button backButton;
+
+    private TextBlock creditTextBlock;
+
+    public GameOverWindow() : base(28, 10, 60, 18, '@') {
+        List<String> creditData = new List<string>();
+
+        creditData.Add("");
+        creditData.Add("GAME OVER!");
+        creditData.Add("");
+        creditData.Add("Better luck next time!");
+
+        creditTextBlock = new TextBlock(28 + 1, 10 + 1, 60 - 1, creditData);
+
+
+        backButton = new Button(28 + 20, 10 + 14, 18, 3, "Back");
+        backButton.SetActive();
+    }
+
+    public override void Render() {
+        Console.ForegroundColor = ConsoleColor.Black;
+        
         base.Render();
         creditTextBlock.Render();
         backButton.Render();
