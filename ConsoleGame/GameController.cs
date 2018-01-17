@@ -13,20 +13,28 @@ namespace ConsoleGame {
             gameOverWindow = new GameOverWindow();
         }
 
+
+        private GameScreen myGame;
+
+
+
         public void StartGame() {
             // init game
-            GameScreen myGame = new GameScreen(120, 30);
+            myGame = new GameScreen(120, 30);
 
 
             // fill game with game data.
             myGame.SetHero(new Hero(5, 5, "@"));
 
-            Random rnd = new Random();
-            int enemyCount = 0;
-            for (int i = 0; i < 10; i++) {
-                myGame.AddEnemy(new Enemy(enemyCount, rnd.Next(0, 10), rnd.Next(0, 10), "" + enemyCount));
-                enemyCount++;
-            }
+
+            //int enemyCount = 0;
+            //for (int i = 0; i < 10; i++) {
+            //    myGame.AddEnemy(new Enemy(enemyCount, rnd.Next(0, 10), rnd.Next(0, 10), "" + enemyCount));
+            //    enemyCount++;
+            //}
+
+            myGame.SpawnCollectables(3);
+
 
             // render loop
             bool needToRender = true;
@@ -75,5 +83,7 @@ namespace ConsoleGame {
 
             _guiControler.ShowMenu();
         }
+
+ 
     }
 }
