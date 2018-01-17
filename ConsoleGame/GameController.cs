@@ -11,15 +11,15 @@ namespace ConsoleGame {
 
         public void StartGame() {
             // init game
-            GameScreen myGame = new GameScreen(30, 20);
+            GameScreen myGame = new GameScreen(120, 30);
 
             // fill game with game data.
-            myGame.SetHero(new Hero(5, 5, "HERO"));
+            myGame.SetHero(new Hero(5, 5, "@"));
 
             Random rnd = new Random();
             int enemyCount = 0;
             for (int i = 0; i < 10; i++) {
-                myGame.AddEnemy(new Enemy(enemyCount, rnd.Next(0, 10), rnd.Next(0, 10), "enemy" + enemyCount));
+                myGame.AddEnemy(new Enemy(enemyCount, rnd.Next(0, 10), rnd.Next(0, 10), "" + enemyCount));
                 enemyCount++;
             }
 
@@ -39,13 +39,21 @@ namespace ConsoleGame {
                             needToRender = false;
                             break;
                         case 39: // ConsoleKey.RightArrow:
-                            myGame.GetHero().MoveRight();
+                            myGame.SetHeroDirection(Direction.RIGHT);
                             break;
                         case 37: // ConsoleKey.LeftArrow:
-                            myGame.GetHero().MoveLeft();
+                            myGame.SetHeroDirection(Direction.LEFT);
+                            break;
+                        case 38: //ConsoleKey.UpArrow:
+                            myGame.SetHeroDirection(Direction.UP);
+                            break;
+                        case 40: //ConsoleKey.DownArrow:
+                            myGame.SetHeroDirection(Direction.DOWN);
                             break;
                     }
                 }
+
+                myGame.DoStep();
 
                 myGame.Render();
 
