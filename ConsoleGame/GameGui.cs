@@ -1,25 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Transactions;
 
 sealed class GameWindow : Window {
 
-    private Button startButton;
-    private Button creditsButton;
-    private Button quitButton;
+    private List<Button> menuButtons = new List<Button>();
+
     private TextBlock titleTextBlock;
+
+    private int currentMenuItemActive;
+
+    public readonly int menuItemCount;
 
 
     public GameWindow() : base(0, 0, 120, 30, '%') {
         titleTextBlock = new TextBlock(10, 5, 100, new List<String> {"Super duper zaidimas", "Vardas Pavardaitis kuryba!", "Made in Vilnius Coding School!"});
 
-        startButton = new Button(20, 13, 18, 5, "Start");
-        startButton.SetActive();
+        menuButtons.Add(new Button(20, 13, 18, 5, "Start"));
+        menuButtons.Add(new Button(50, 13, 18, 5, "Credits"));
+        menuButtons.Add(new Button(80, 13, 18, 5, "Quit"));
 
-        creditsButton = new Button(50, 13, 18, 5, "Credits");
+        menuItemCount = menuButtons.Count;
 
-        quitButton = new Button(80, 13, 18, 5, "Quit");
+        currentMenuItemActive = 0;
+        menuButtons[0].SetActive();
+    }
 
-        Render();
+    public int GetCurrentMenuItemIndex() {
+        return currentMenuItemActive;
     }
 
     public override void Render() {
@@ -27,11 +35,18 @@ sealed class GameWindow : Window {
 
         titleTextBlock.Render();
 
-        startButton.Render();
-        creditsButton.Render();
-        quitButton.Render();
+
+        for (int i = 0; i < menuButtons.Count; i++) {
+            menuButtons[i].Render();
+        }
 
         Console.SetCursorPosition(0, 0);
+    }
+
+    public void SetMenuItemActine(int activeIndex) {
+        menuButtons[currentMenuItemActive].SetInactive();
+        currentMenuItemActive = activeIndex;
+        menuButtons[currentMenuItemActive].SetActive();
     }
 }
 
@@ -63,8 +78,6 @@ sealed class CreditWindow : Window {
 
         backButton = new Button(28 + 20, 10 + 14, 18, 3, "Back");
         backButton.SetActive();
-
-        Render();
     }
 
     public override void Render() {
@@ -124,6 +137,10 @@ class Button : GuiObject {
 
     public void SetActive() {
         isActive = true;
+    }
+
+    public void SetInactive() {
+        isActive = false;
     }
 }
 
