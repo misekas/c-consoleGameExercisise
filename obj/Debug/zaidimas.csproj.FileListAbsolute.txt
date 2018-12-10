@@ -1,0 +1,7 @@
+C:\My Stuff\Mokyklele C#\pamoka_9\zaidimas\obj\Debug\zaidimas.csprojAssemblyReference.cache
+C:\My Stuff\Mokyklele C#\pamoka_9\zaidimas\obj\Debug\zaidimas.csproj.CoreCompileInputs.cache
+C:\My Stuff\Mokyklele C#\pamoka_9\zaidimas\bin\Debug\zaidimas.exe.config
+C:\My Stuff\Mokyklele C#\pamoka_9\zaidimas\bin\Debug\zaidimas.exe
+C:\My Stuff\Mokyklele C#\pamoka_9\zaidimas\bin\Debug\zaidimas.pdb
+C:\My Stuff\Mokyklele C#\pamoka_9\zaidimas\obj\Debug\zaidimas.exe
+C:\My Stuff\Mokyklele C#\pamoka_9\zaidimas\obj\Debug\zaidimas.pdb
